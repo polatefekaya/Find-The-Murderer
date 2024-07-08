@@ -1,9 +1,11 @@
 matrixSize = int(input("Number of persons?\n"))
 
 givenInput = []
-
 seenArray = []
 suspectArray = []
+
+ACCEPTED_CHARS = ["0","1","2"]
+SUSPECT_THRESHOLD = 2
 
 def initSeenList():
     for i in range(matrixSize):
@@ -21,13 +23,13 @@ def initInputLines():
         index = 0
         for j in range(num):
             extractedChar = line[j]
-            if(extractedChar == "1" or extractedChar == "2" or extractedChar == "0"):
+            if(extractedChar in ACCEPTED_CHARS):
                 extractedNum = int(line[j])
                 givenInput[i][index] = extractedNum
                 index += 1
         checkForObservers(i)
 
-def analyzer():
+def analyzer(): 
     initSeenList()
     initInputList()
 
@@ -58,7 +60,7 @@ def checkForObservers(line):
 
 def suspectFinder():
     for i in range(matrixSize):
-        if(seenArray[i] < 2):
+        if(seenArray[i] < SUSPECT_THRESHOLD):
             suspectArray.append(i)
 
 analyzer()
